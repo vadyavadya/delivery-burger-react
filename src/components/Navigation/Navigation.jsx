@@ -1,16 +1,37 @@
 import classNames from 'classnames'
 import { Container } from '../Container/Container'
-import style from './Nafigateion.module.css'
+import style from './Navigation.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeCategory } from '../../store/categorySlicer'
 
 export const Navigation = () => {
+
+    const { category, activeCategory } = useSelector((state) => state.category);
+    const dispatch = useDispatch();
+
+
     return (
         <nav className={style.navigation}>
             <Container className={style.container}>
                 <ul className={style.list}>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_burger, style.button_active)}>Бургеры</button>
-                    </li>
-                    <li className={style.item}>
+                    {
+                        category.map((item, i) =>
+                            <li key={item.title} className={style.item}>
+                                <button
+                                    className={classNames(style.button, activeCategory === i ? style.button_active : '')}
+                                    style={{ backgroundImage: `url(${item.image})` }}
+                                    onClick={() => dispatch(changeCategory({ indexCategory: i }))}
+                                >{item.rus}</button>
+                            </li>
+                        )
+                    }
+                </ul>
+            </Container>
+        </nav>
+    )
+}
+
+{/*  <li className={style.item}>
                         <button className={classNames(style.button, style.button_snack)}>Закуски</button>
                     </li>
                     <li className={style.item}>
@@ -33,9 +54,4 @@ export const Navigation = () => {
                     </li>
                     <li className={style.item}>
                         <button className={classNames(style.button, style.button_sauce)}>Соусы</button>
-                    </li>
-                </ul>
-            </Container>
-        </nav>
-    )
-}
+                    </li> */}
