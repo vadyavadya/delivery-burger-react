@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_URL, POSTFIX } from '../const'
+import { API_URL, POSTFIX } from '../../const'
 
 const initialState = {
     category: [],
@@ -23,7 +23,7 @@ export const categorySlicer = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchCategory.pending, (state, action) => {
+            .addCase(fetchCategory.pending, state => {
                 state.error = '';
             })
             .addCase(fetchCategory.fulfilled, (state, action) => {

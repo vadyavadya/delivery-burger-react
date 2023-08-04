@@ -3,7 +3,7 @@ import { Container } from '../Container/Container'
 import style from './Navigation.module.css'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeCategory, fetchCategory } from '../../store/categorySlicer'
+import { changeCategory, fetchCategory } from '../../store/category/categorySlicer'
 import { API_URL } from '../../const'
 
 export const Navigation = () => {
@@ -35,28 +35,3 @@ export const Navigation = () => {
         </nav>
     )
 }
-
-{/*  <li className={style.item}>
-                        <button className={classNames(style.button, style.button_snack)}>Закуски</button>
-                    </li>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_hotdog)}>Хот-доги</button>
-                    </li>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_combo)}>Комбо</button>
-                    </li>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_shawarma)}>Шаурма</button>
-                    </li>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_pizza)}>Пицца</button>
-                    </li>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_wok)}>Вок</button>
-                    </li>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_dessert)}>Десерты</button>
-                    </li>
-                    <li className={style.item}>
-                        <button className={classNames(style.button, style.button_sauce)}>Соусы</button>
-                    </li> */}
