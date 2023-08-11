@@ -6,10 +6,8 @@ import { addProduct } from '../../store/order/orderSlicer';
 export const CatalogProduct = ({ productId, title, image, weight, price }) => {
     const dispatch = useDispatch();
 
-    const add = (id) => {
-        console.log('id: ', id);
-
-        dispatch(addProduct(id));
+    const add = () => {
+        dispatch(addProduct(productId));
     }
 
     return (
@@ -27,7 +25,7 @@ export const CatalogProduct = ({ productId, title, image, weight, price }) => {
             <button
                 className={style.add}
                 type="button"
-                onClick={()=>add(productId)}
+                onClick={add}
             >Добавить</button>
         </article>
     )

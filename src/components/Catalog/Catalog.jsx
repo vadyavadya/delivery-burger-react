@@ -31,7 +31,7 @@ export const Catalog = () => {
 
                     <div className={style.wrap_list}>
 
-                        {product.length ?
+                        {product.length ? (
                             <ul className={style.list}>
                                 {product.map(item =>
                                     <li key={item.id} className={style.item}>
@@ -44,9 +44,9 @@ export const Catalog = () => {
                                     </li>
                                 )}
                             </ul>
-                            :
+                        ) : (
                             <div>Готовим...</div>
-                        }
+                        )}
                     </div>
                 </div>
             </Container>
