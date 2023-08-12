@@ -5,6 +5,7 @@ import { Header } from "./components/Header/Header"
 import { Navigation } from "./components/Navigation/Navigation"
 import { store } from "./store"
 import { ModalDelivery } from "./components/ModalDelivery/ModalDelivery"
+import { ModalProduct } from "./components/ModalProduct/ModalProduct"
 
 export const App = () => {
   return (
@@ -15,6 +16,7 @@ export const App = () => {
         <Catalog />
       </main>
       <Footer />
+      <ModalProduct />
       <ModalDelivery />
     </Provider>
   )
