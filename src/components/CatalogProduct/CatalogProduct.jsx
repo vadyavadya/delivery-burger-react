@@ -2,31 +2,43 @@ import { useDispatch } from 'react-redux'
 import { API_URL } from '../../const'
 import style from './CatalogProduct.module.css'
 import { addProduct } from '../../store/order/orderSlicer';
+import { openModal } from '../../store/modalAboutProduct/modalAboutProductSlice';
 
-export const CatalogProduct = ({ productId, title, image, weight, price }) => {
+export const CatalogProduct = ({ product }) => {
     const dispatch = useDispatch();
 
     const add = () => {
-        dispatch(addProduct(productId));
+        dispatch(addProduct(product.id));
+    }
+
+    const openInfo = () => {
+        dispatch(openModal(product));
     }
 
     return (
         <article className={style.product}>
-            <img src={`${API_URL}/${image}`} alt={title} className={style.image} />
+            <img src={`${API_URL}/${product.image}`} alt={product.title} className={style.image} />
 
-            <p className={style.price}>{price}<span className="currency">₽</span></p>
+            <p className={style.price}>{product.price}<span className="currency">₽</span></p>
 
             <h3 className={style.title}>
-                <button className={style.detail}>{title}</button>
+                <button
+                    onClick={() => openInfo()}
+                    className={style.detail}
+                >
+                    {product.title}
+                </button>
             </h3>
 
-            <p className={style.weight}>{weight}г</p>
+            <p className={style.weight}>{product.weight}г</p>
 
             <button
                 className={style.add}
                 type="button"
                 onClick={add}
-            >Добавить</button>
+            >
+                Добавить
+            </button>
         </article>
     )
 }

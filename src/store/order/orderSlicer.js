@@ -71,6 +71,29 @@ const orderSlicer = createSlice({
         },
         removeOrder: (state) => {
             state.orderList = [];
+        },
+        addProductCount: (state, action) => {
+            const productOrderList = state.orderList.find((item) =>
+                item.id === action.payload.id
+            );
+            if (productOrderList) {
+
+                if (action.payload.count === 0) {
+                    state.orderList = state.orderList.filter((item) => item.id != action.payload.id);
+                } else {
+                    productOrderList.count = action.payload.count;
+
+                    const productOrderGoods = state.listGoods.find((item) =>
+                        item.id === productOrderList.id
+                    );
+                    productOrderGoods.count = productOrderList.count;
+
+                    state.totalCount = calcTotal(state.listGoods, 'count');
+                    state.totalPrice = calcTotal(state.listGoods, 'price');
+                }
+            } else {
+                state.orderList.push({ id: action.payload.id, count: action.payload.count })
+            }
         }
     },
     extraReducers(builder) {
@@ -97,6 +120,6 @@ const orderSlicer = createSlice({
     }
 });
 
-export const { addProduct, removeProduct, removeOrder } = orderSlicer.actions;
+export const { addProduct, addProductCount, removeProduct, removeOrder } = orderSlicer.actions;
 export default orderSlicer.reducer;
 

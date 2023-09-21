@@ -37,12 +37,7 @@ export const Catalog = () => {
                                 <ul className={style.list}>
                                     {product.map(item =>
                                         <li key={item.id} className={style.item}>
-                                            <CatalogProduct
-                                                productId={item.id}
-                                                title={item.title}
-                                                image={item.image}
-                                                weight={item.weight}
-                                                price={item.price} />
+                                            <CatalogProduct product={item} />
                                         </li>
                                     )}
                                 </ul>
