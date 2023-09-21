@@ -52,6 +52,23 @@ const orderSlicer = createSlice({
                 state.orderList.push({ id: action.payload, count: 1 })
             }
         },
+        addProductCount: (state, action) => {
+            const productOrderList = state.orderList.find((item) =>
+                item.id === action.payload.id
+            );
+            if (productOrderList) {
+                productOrderList.count += action.payload.count;
+
+                const productOrderGoods = state.listGoods.find((item) =>
+                    item.id === productOrderList.id
+                );
+                productOrderGoods.count = productOrderList.count;
+                state.totalCount = calcTotal(state.listGoods, 'count');
+                state.totalPrice = calcTotal(state.listGoods, 'price');
+            } else {
+                state.orderList.push({ id: action.payload.id, count: action.payload.count })
+            }
+        },
         removeProduct: (state, action) => {
             const productOrderList = state.orderList.find((item) =>
                 item.id === action.payload
