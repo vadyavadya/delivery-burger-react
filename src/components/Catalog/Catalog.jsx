@@ -9,7 +9,7 @@ import { productFetch } from "../../store/product/productSlicer";
 
 export const Catalog = () => {
     const { category, activeCategory } = useSelector((state) => state.category);
-    const { product } = useSelector((state) => state.product);
+    const { product, status } = useSelector((state) => state.product);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,23 +30,26 @@ export const Catalog = () => {
                     <h2 className={style.title}>{category[activeCategory]?.rus}</h2>
 
                     <div className={style.wrap_list}>
+                        {status == 'idle' || status == 'loading' && <div>Загрузка...</div>}
 
-                        {product.length ? (
-                            <ul className={style.list}>
-                                {product.map(item =>
-                                    <li key={item.id} className={style.item}>
-                                        <CatalogProduct
-                                            productId={item.id}
-                                            title={item.title}
-                                            image={item.image}
-                                            weight={item.weight}
-                                            price={item.price} />
-                                    </li>
-                                )}
-                            </ul>
-                        ) : (
-                            <div>Готовим...</div>
-                        )}
+                        {status == 'succeeded' &&
+                            (product.length ? (
+                                <ul className={style.list}>
+                                    {product.map(item =>
+                                        <li key={item.id} className={style.item}>
+                                            <CatalogProduct
+                                                productId={item.id}
+                                                title={item.title}
+                                                image={item.image}
+                                                weight={item.weight}
+                                                price={item.price} />
+                                        </li>
+                                    )}
+                                </ul>
+                            ) : (
+                                <div>Готовим...</div>
+                            ))
+                        }
                     </div>
                 </div>
             </Container>

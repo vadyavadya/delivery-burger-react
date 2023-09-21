@@ -4,6 +4,7 @@ import { API_URL, POSTFIX } from "../../const"
 
 const initialState = {
     product: [],
+    status:'idle',
     error: '',
 }
 
@@ -19,12 +20,15 @@ export const productSlicer = createSlice({
     extraReducers(builder) {
         builder
             .addCase(productFetch.pending, state => {
+                state.status = 'loading';
                 state.error = '';
             })
             .addCase(productFetch.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 state.product = action.payload;
             })
             .addCase(productFetch.rejected, (state, action) => {
+                state.status = 'failed';
                 state.error = action.payload.error;
             })
     },
