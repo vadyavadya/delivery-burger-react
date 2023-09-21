@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { requestOrderGoods } from '../../store/order/orderSlicer';
 import { openModal } from '../../store/modalDelivery/modalDelivery';
 
-const orderList = ['Супер сырный', 'Картошка фри', 'Жгучий хот-дог'];
 
 export const Order = () => {
     const { totalCount, totalPrice, orderList, listGoods } = useSelector((state) => state.order);
@@ -14,6 +13,10 @@ export const Order = () => {
     useEffect(() => {
         dispatch(requestOrderGoods())
     }, [orderList.length])
+
+    const freeDelivery = 599;
+
+
 
     const clickOpenModal = () => {
         dispatch(openModal());
@@ -59,7 +62,16 @@ export const Order = () => {
                     >Оформить заказ</button>
 
                     <div className={style.apeal}>
-                        {totalPrice > 599 && <p className={style.text}>Бесплатная доставка</p>}
+                        <p className={style.text} >
+                            <span
+                                style={totalPrice < freeDelivery ? { textDecoration: 'line-through' } : {}}
+                            >
+                                Бесплатная доставка
+                            </span>
+
+                            {totalPrice < freeDelivery && `\u00A0От ${freeDelivery}\u00A0₽`}
+                        </p>
+
                         <button className={style.close}>Свернуть</button>
                     </div>
                 </div>
