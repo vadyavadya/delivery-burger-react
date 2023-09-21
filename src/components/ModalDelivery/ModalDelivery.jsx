@@ -157,6 +157,6 @@ export const ModalDelivery = () => {
           </svg>
         </button>
       </div>
-    </div >
+    </div>
   );
 }
