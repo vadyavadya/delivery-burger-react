@@ -65,6 +65,9 @@
 .order_open .wrap_list {
   display: block;
 }
+.order_open .wrapper {
+  position: unset;
+}
 
 .list {
   margin-bottom: 13px;

@@ -1,9 +1,10 @@
 import style from './Order.module.css'
 import { OrderGoods } from '../OrderGoods/OrderGoods';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { requestOrderGoods } from '../../store/order/orderSlicer';
 import { openModal } from '../../store/modalDelivery/modalDelivery';
+import classNames from 'classnames';
 
 
 export const Order = () => {
@@ -15,15 +16,29 @@ export const Order = () => {
     }, [orderList.length])
 
     const freeDelivery = 599;
-
+    const [orderOpen, setOrderOpen] = useState(false);
 
 
     const clickOpenModal = () => {
         dispatch(openModal());
     }
 
+    const openOrder = () => {
+        if (document.body.clientWidth < 1024) {
+            if (!orderOpen) {
+                setOrderOpen(true);
+            }
+        } else {
+            setOrderOpen(false);
+        }
+    }
+
+    const closeOrder = () => {
+        setOrderOpen(false);
+    }
+
     return (
-        <div className={style.order}>
+        <div className={orderOpen ? classNames(style.order, style.order_open) : style.order} onClick={openOrder}>
             <section className={style.wrapper}>
                 <div className={style.header} tabIndex="0" role="button">
                     <h2 className={style.title}>Корзина</h2>
@@ -72,10 +87,10 @@ export const Order = () => {
                             {totalPrice < freeDelivery && `\u00A0От ${freeDelivery}\u00A0₽`}
                         </p>
 
-                        <button className={style.close}>Свернуть</button>
+                        <button className={style.close} onClick={closeOrder}>Свернуть</button>
                     </div>
                 </div>
             </section>
-        </div>
+        </div >
     )
 }
