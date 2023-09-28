@@ -38,7 +38,7 @@ export const Order = () => {
     }
 
     return (
-        <div className={orderOpen ? classNames(style.order, style.order_open) : style.order} onClick={openOrder}>
+        <div className={classNames(style.order, { [style.order_open]: orderOpen })} onClick={openOrder}>
             <section className={style.wrapper}>
                 <div className={style.header} tabIndex="0" role="button">
                     <h2 className={style.title}>Корзина</h2>
