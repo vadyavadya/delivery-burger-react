@@ -9,6 +9,8 @@ const initialState = {
     address: '',
     floor: '',
     intercom: '',
+    validation: {},
+    touch: false,
 }
 
 export const submitForm = createAsyncThunk('form/submit',
@@ -48,12 +50,20 @@ export const formSlice = createSlice({
     reducers: {
         changeForm: (state, action) => {
             state[action.payload.field] = action.payload.value;
+            state.response = '';
+        },
+        validationFormAction: (state, action) => {
+            state.validation = action.payload;
+        },
+        touchFormAction: state => {
+            state.touch = true;
         }
     },
     extraReducers(builder) {
         builder
             .addCase(submitForm.pending, state => {
-                state.response = null
+                state.response = null;
+                state.response = '';
             })
             .addCase(submitForm.fulfilled, (state, action) => {
                 state.response = action.payload
@@ -65,5 +75,33 @@ export const formSlice = createSlice({
     }
 })
 
-export const { changeForm } = formSlice.actions;
+export const { changeForm, validationFormAction, touchFormAction } = formSlice.actions;
 export default formSlice.reducer
+
+export const validationForm = () => (dispatch, getState) => {
+    const form = getState().form;
+    const errorsValidation = {};
+    if (form.touch) {
+        if (!form.name) {
+            errorsValidation.name = 'Name is empty.';
+        }
+        if (!form.phone) {
+            errorsValidation.phone = 'Phone is empty.';
+        }
+        if (isNaN(Number(form.phone))) {
+            errorsValidation.phone = 'Phone is number.';
+        }
+        if (form.format === 'delivery') {
+            if (!form.address) {
+                errorsValidation.address = 'Address is empty.';
+            }
+            if (!form.floor) {
+                errorsValidation.floor = 'Floor is empty.';
+            }
+            if (!form.intercom) {
+                errorsValidation.intercom = 'Intercom is empty.';
+            }
+        }
+    }
+    dispatch(validationFormAction(errorsValidation));
+}

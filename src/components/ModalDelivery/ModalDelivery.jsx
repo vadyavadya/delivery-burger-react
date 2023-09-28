@@ -2,13 +2,12 @@ import classNames from 'classnames';
 import style from './ModalDelivery.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../store/modalDelivery/modalDelivery';
-import { changeForm, submitForm } from '../../store/form/formSlice';
+import { changeForm, submitForm, touchFormAction, validationForm } from '../../store/form/formSlice';
 
 export const ModalDelivery = () => {
   const { isOpen } = useSelector(state => state.modal);
   const form = useSelector(state => state.form);
   const { orderList } = useSelector(state => state.order)
-
 
   const dispatch = useDispatch();
 
@@ -20,12 +19,17 @@ export const ModalDelivery = () => {
     dispatch(changeForm({
       field: e.target.name,
       value: e.target.value,
-    }))
+    }));
+    dispatch(validationForm());
   }
 
   const formSubmit = (e) => {
     e.preventDefault();
-    dispatch(submitForm({ ...form, orderList }));
+    dispatch(touchFormAction());
+    dispatch(validationForm());
+    if (Object.keys(form.validation).length === 0 && form.touch) {
+      dispatch(submitForm({ ...form, orderList }));
+    }
   }
 
   return isOpen && (
@@ -122,6 +126,10 @@ export const ModalDelivery = () => {
             form.response &&
             <div>{form.response}</div>
           }
+
+          {Object.keys(form.validation).length !== 0 && Object.keys(form.validation).map((item) => 
+          <div key={item}>{form.validation[item]}</div>
+          )}
 
           <button className={style.submit} type='submit' form='delivery'>
             Оформить
