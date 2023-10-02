@@ -85,7 +85,7 @@ export const ModalProduct = () => {
                             </div>
                         </div>
 
-                        <p className={style.price}>{product.price * quantity}
+                        <p className={style.price}>{product.price}
                             <span className={style.currency}>&nbsp;₽</span>
                         </p>
                     </div>
