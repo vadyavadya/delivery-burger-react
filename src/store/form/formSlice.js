@@ -85,12 +85,15 @@ export const validationForm = () => (dispatch, getState) => {
         if (!form.name) {
             errorsValidation.name = 'Name is empty.';
         }
+
+        let regPhone = /^[+][0-9] [(][0-9]{3}[)] [0-9]{3}[-][0-9]{2}[-][0-9]{2}$/
+        if (!regPhone.test(form.phone)) {
+            errorsValidation.phone = 'Формат телефона +7 (777)-777-77-77'
+        }
         if (!form.phone) {
             errorsValidation.phone = 'Phone is empty.';
         }
-        if (isNaN(Number(form.phone))) {
-            errorsValidation.phone = 'Phone is number.';
-        }
+
         if (form.format === 'delivery') {
             if (!form.address) {
                 errorsValidation.address = 'Address is empty.';

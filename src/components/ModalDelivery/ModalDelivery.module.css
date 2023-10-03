@@ -92,12 +92,26 @@
   color: #000;
 }
 
+.field {
+  width: 100%;
+  color: red;
+  font-size: 10px;
+}
+.field_half {
+  flex-basis: calc((100% - var(--gap)) / 2);
+}
+
 .input_half {
   flex-basis: calc((100% - var(--gap)) / 2);
 }
 
 .input::placeholder {
   color: #b1b1b1;
+}
+
+.input_error {
+  margin-top: 6px;
+  outline: solid red 2px;
 }
 
 .label {
@@ -155,7 +169,9 @@
   font-size: 12px;
   line-height: 100%;
   color: #ffffff;
-  transition: transform 0.1s ease, background-color 0.3s ease-in-out;
+  transition:
+    transform 0.1s ease,
+    background-color 0.3s ease-in-out;
 }
 
 .submit:hover {
@@ -212,7 +228,9 @@
   .mdelivery {
     max-width: 684px;
     padding: 44px 24px 24px 366px;
-    background: url("../../assets/img/donut.svg") 19px center, linear-gradient(to right, #ffab08 50%, #fff 50%);
+    background:
+      url("../../assets/img/donut.svg") 19px center,
+      linear-gradient(to right, #ffab08 50%, #fff 50%);
     background-size: 302px, auto;
     background-repeat: no-repeat;
   }

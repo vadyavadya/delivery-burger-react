@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { closeModal } from "../../store/modalAboutProduct/modalAboutProductSlice"
 import style from "./ModalProduct.module.css"
 import { API_URL } from "../../const"
-import { addProduct, addProductCount, removeProduct } from "../../store/order/orderSlicer"
+import { addProductCount } from "../../store/order/orderSlicer"
 import { useEffect, useState } from "react"
 
 export const ModalProduct = () => {
